@@ -45,14 +45,23 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import rules from './rules'
-// import { useStore } from 'vuex'
+import { useStore } from 'vuex'
 
-// const store = useStore()
+const store = useStore()
 const formRef = ref(null)
 const loginForm = reactive({
   username: 'admin',
   password: 'admin'
 })
+
+const handleLogin = async () => {
+  try {
+    await formRef.value.validate()
+    await store.dispatch('user/login', loginForm)
+  } catch (e) {
+    console.log(e, 'login')
+  }
+}
 </script>
 
 <style lang="scss" scoped>

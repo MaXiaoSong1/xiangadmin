@@ -1,6 +1,6 @@
 import axios from 'axios'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+// import NProgress from 'nprogress'
+// import 'nprogress/nprogress.css'
 import { ElMessage } from 'element-plus'
 import store from '@/store'
 // 创建axios实例
@@ -12,16 +12,16 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(
   (config) => {
-    NProgress.start()
+    // NProgress.start()
     const token = store.getters.token
     if (token) {
       config.headers.token = token
     }
-    // 在发送请求之前做些什么
+    // // 在发送请求之前做些什么
     return config
   },
   (error) => {
-    NProgress.done()
+    // NProgress.done()
     // 对请求错误做些什么
     return Promise.reject(error)
   }
@@ -30,7 +30,7 @@ instance.interceptors.request.use(
 // 添加响应拦截器
 instance.interceptors.response.use(
   (response) => {
-    NProgress.done()
+    // NProgress.done()
     // 对响应数据做点什么
     const {
       status,
@@ -43,7 +43,7 @@ instance.interceptors.response.use(
     return Promise.reject(msg)
   },
   (error) => {
-    NProgress.done()
+    // NProgress.done()
     const { message } = error
     if (message.includes('Network Error')) {
       _showError('网络错误')
