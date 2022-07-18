@@ -3,7 +3,6 @@ import { setItem, getItem } from '@/utils/storage'
 import { TOKEN } from '@/utils/constants'
 import router from '@/router'
 import { Notification } from '@/utils/Notification'
-
 export default {
   namespaced: true,
   state: () => ({

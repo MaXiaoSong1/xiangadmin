@@ -46,7 +46,6 @@
 import { reactive, ref } from 'vue'
 import rules from './rules'
 import { useStore } from 'vuex'
-
 const store = useStore()
 const formRef = ref(null)
 const loginForm = reactive({
