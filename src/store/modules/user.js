@@ -16,6 +16,7 @@ export default {
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
+      setItem('userInfo', userInfo)
     }
   },
   actions: {
@@ -31,8 +32,9 @@ export default {
     },
     async getUserInfo({ commit }) {
       try {
-        const { data } = await userInfoAPI()
-        commit('setUserInfo', data)
+        const res = await userInfoAPI()
+        console.log(res, 'userinfo')
+        commit('setUserInfo', res)
       } catch (e) {
         console.log(e, 'vuex/user')
       }

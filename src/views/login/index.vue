@@ -57,6 +57,7 @@ const handleLogin = async () => {
   try {
     await formRef.value.validate()
     await store.dispatch('user/login', loginForm)
+    await store.dispatch('user/getUserInfo')
   } catch (e) {
     console.log(e, 'login')
   }
