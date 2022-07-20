@@ -3,11 +3,13 @@ import { setItem, getItem } from '@/utils/storage'
 import { TOKEN } from '@/utils/constants'
 import router from '@/router'
 import { Notification } from '@/utils/Notification'
+import { resetRouter } from '@/utils/resetRouter'
+
 export default {
   namespaced: true,
   state: () => ({
     token: getItem(TOKEN) || '',
-    userInfo: getItem('userInfo') || {}
+    userInfo: {}
   }),
   mutations: {
     setToken(state, token) {
@@ -16,7 +18,6 @@ export default {
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
-      setItem('userInfo', userInfo)
     }
   },
   actions: {
@@ -32,9 +33,8 @@ export default {
     },
     async getUserInfo({ commit }) {
       try {
-        const res = await userInfoAPI()
-        console.log(res, 'userinfo')
-        commit('setUserInfo', res)
+        const data = await userInfoAPI()
+        commit('setUserInfo', data)
       } catch (e) {
         console.log(e, 'vuex/user')
       }
@@ -42,6 +42,7 @@ export default {
     async userLogout({ commit }) {
       try {
         await logoutAPI()
+        resetRouter()
         commit('setToken', '')
         commit('setUserInfo', {})
         Notification('退出登录成功', '', 'success')

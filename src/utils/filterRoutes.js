@@ -1,5 +1,6 @@
 const routerNames = []
 export const filterRoutes = (routes) => {
+  console.log(routes)
   if (!routes) return []
   const result = []
   routes.forEach((item) => {

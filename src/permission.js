@@ -1,21 +1,33 @@
-import router from './router'
-import store from './store'
-const whiteList = ['/login', '/404', '/401']
+import router from '@/router'
+import store from '@/store'
+import { filterRoutes } from '@/utils/filterRoutes'
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const token = store.getters.token
-  console.log(token, '路由鉴权查看token是否存储')
-  if (token) {
-    if (to.path === '/login') {
-      next(from.path)
-    } else {
-      next()
-    }
-  } else {
-    if (whiteList.includes(to.path)) {
-      next()
-    } else {
-      next('/login')
+  document.title = to.meta.title || '哈哈哈'
+  if (token && to.path === '/login') {
+    return next(from.path)
+  }
+  if (!token && to.path !== '/login') {
+    return next('/login')
+  }
+  if (to.path !== '/login') {
+    const userInfo = store.getters.userInfo
+    if (JSON.stringify(userInfo) === '{}') {
+      await store.dispatch('user/getUserInfo')
+      const routes = filterRoutes(store.getters.menus)
+      router.addRoute({
+        redirect: '/index'
+      })
+      routes.forEach((item) => {
+        router.addRoute('layout', item)
+      })
+      router.addRoute({
+        path: '/:catchAll(.*)',
+        redirect: '/404'
+      })
+      return next(to.path)
     }
   }
+  next()
 })

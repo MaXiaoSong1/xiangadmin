@@ -35,7 +35,7 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item>修改密码</el-dropdown-item>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item >退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>

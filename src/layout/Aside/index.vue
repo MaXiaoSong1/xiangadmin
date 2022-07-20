@@ -1,29 +1,36 @@
 <template>
-  <div>
-    <el-menu unique-opened router>
-      <MenuTree
-        v-for="(item, i) in menuList"
-        :key="i"
-        :item="item"
-        :i="i"
-      ></MenuTree>
-    </el-menu>
-  </div>
+  <el-menu
+    :collapse="isCollapse"
+    :default-active="$route.path"
+    router
+    unique-opened
+  >
+    <MenuTree
+      v-for="(item, i) in menuList"
+      :key="i"
+      :i="i"
+      :item="item"
+    ></MenuTree>
+  </el-menu>
 </template>
+
 <script setup>
-import MenuTree from './MenuTree.vue'
+import MenuTree from './MenuTree'
 import { useStore } from 'vuex'
 import { filterMenus } from '@/utils/menu'
 import { computed } from 'vue'
-const store = useStore()
 
+const store = useStore()
 const menuList = computed(() => {
   return filterMenus(store.getters.menus)
 })
-console.log(menuList)
+const isCollapse = computed(() => {
+  return store.getters.isCollapse
+})
 </script>
-<style lang="scss" scoped>
+
+<style scoped>
 .el-menu {
-  border-right: none;
+  border: none;
 }
 </style>

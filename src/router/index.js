@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+// import layout from '@/layout'
 
 const routes = [
   {
@@ -9,18 +10,20 @@ const routes = [
   {
     path: '/',
     name: 'layout',
+    redirect: '/index',
     component: () => import('../layout'),
     children: [
       {
         path: '/index',
-        name: 'index',
-        component: () => import('../views/index')
+        name: 'Index',
+        component: () => import('@/views/index')
       }
     ]
   },
   {
     path: '/404',
-    component: () => import('../views/404')
+    name: '404',
+    component: () => import('@/views/404')
   }
 ]
 
