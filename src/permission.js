@@ -4,7 +4,7 @@ import { filterRoutes } from '@/utils/filterRoutes'
 
 router.beforeEach(async (to, from, next) => {
   const token = store.getters.token
-  document.title = to.meta.title || '哈哈哈'
+  document.title = to.meta.title || '主控台'
   if (token && to.path === '/login') {
     return next(from.path)
   }

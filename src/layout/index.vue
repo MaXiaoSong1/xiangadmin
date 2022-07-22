@@ -35,10 +35,14 @@ import Main from './Main'
 .el-aside {
   background-color: #ffffff;
   color: #333;
+  height: 100%;
+  overflow: hidden;
 }
 
 .el-main {
   background-color: #f3f4f6;
   color: #333;
+  height: 100%;
+  // overflow: hidden;
 }
 </style>
